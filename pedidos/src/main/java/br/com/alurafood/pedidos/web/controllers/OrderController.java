@@ -55,4 +55,10 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PatchMapping("/{id}/paid")
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable Long id) {
+        var order = orderService.updateOrderStatus(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

@@ -2,6 +2,7 @@ package br.com.alurafood.pedidos.services;
 
 import br.com.alurafood.pedidos.entities.Order;
 import br.com.alurafood.pedidos.entities.Status;
+import br.com.alurafood.pedidos.exceptions.EntityNotFoundException;
 import br.com.alurafood.pedidos.repositories.OrderItemRepository;
 import br.com.alurafood.pedidos.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,12 @@ public class OrderService {
     public void delete(Long id)
     {
         orderRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Order updateOrderStatus(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
+        order.setStatus(Status.PAID);
+        return order;
     }
 }

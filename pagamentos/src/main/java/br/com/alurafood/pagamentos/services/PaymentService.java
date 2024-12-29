@@ -1,6 +1,9 @@
 package br.com.alurafood.pagamentos.services;
 
+import br.com.alurafood.pagamentos.clients.OrderClient;
 import br.com.alurafood.pagamentos.entities.Payment;
+import br.com.alurafood.pagamentos.entities.Status;
+import br.com.alurafood.pagamentos.exceptions.EntityNotFoundException;
 import br.com.alurafood.pagamentos.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +16,9 @@ public class PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private OrderClient orderClient;
 
     @Transactional(readOnly = true)
     public Page<Payment> findAll(Pageable pageable)
@@ -38,4 +44,12 @@ public class PaymentService {
         paymentRepository.deleteById(id);
     }
 
+    @Transactional
+    public void confirmPayment(Long id) {
+        Payment payment = paymentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
+        payment.setStatus(Status.CONFIRMED);
+
+        // chamada para o microserviço de pedidos
+        orderClient.updateOrderStatus(payment.getOrderId());
+    }
 }
