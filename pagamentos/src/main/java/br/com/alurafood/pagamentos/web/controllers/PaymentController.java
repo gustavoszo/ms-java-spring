@@ -2,14 +2,13 @@ package br.com.alurafood.pagamentos.web.controllers;
 
 import br.com.alurafood.pagamentos.entities.Payment;
 import br.com.alurafood.pagamentos.services.PaymentService;
-import br.com.alurafood.pagamentos.web.controllers.dto.RequestPaymentDto;
-import br.com.alurafood.pagamentos.web.controllers.dto.mapper.PaymentMapper;
+import br.com.alurafood.pagamentos.web.dto.RequestPaymentDto;
+import br.com.alurafood.pagamentos.web.dto.mapper.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.web.controllers.dto;
+package br.com.alurafood.pagamentos.web.dto;
 
 import br.com.alurafood.pagamentos.entities.Status;
 import jakarta.validation.constraints.NotBlank;

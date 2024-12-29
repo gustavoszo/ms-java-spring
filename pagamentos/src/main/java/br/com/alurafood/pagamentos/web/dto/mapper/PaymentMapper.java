@@ -1,7 +1,7 @@
-package br.com.alurafood.pagamentos.web.controllers.dto.mapper;
+package br.com.alurafood.pagamentos.web.dto.mapper;
 
 import br.com.alurafood.pagamentos.entities.Payment;
-import br.com.alurafood.pagamentos.web.controllers.dto.RequestPaymentDto;
+import br.com.alurafood.pagamentos.web.dto.RequestPaymentDto;
 import org.modelmapper.ModelMapper;
 
 public class PaymentMapper {
