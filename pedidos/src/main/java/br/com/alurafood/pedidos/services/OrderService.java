@@ -2,6 +2,7 @@ package br.com.alurafood.pedidos.services;
 
 import br.com.alurafood.pedidos.entities.Order;
 import br.com.alurafood.pedidos.entities.Status;
+import br.com.alurafood.pedidos.repositories.OrderItemRepository;
 import br.com.alurafood.pedidos.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,12 +18,21 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @Transactional
     public Order create(Order order)
     {
         order.setDate(LocalDateTime.now());
         order.setStatus(Status.REALIZED);
-        return orderRepository.save(order);
+
+        orderRepository.save(order);
+        for (var item : order.getItens()) {
+            item.setOrder(order);
+            orderItemRepository.save(item);
+        };
+        return order;
     }
 
     @Transactional(readOnly = true)

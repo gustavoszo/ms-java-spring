@@ -4,8 +4,10 @@ import br.com.alurafood.pedidos.entities.Order;
 import br.com.alurafood.pedidos.entities.OrderItem;
 import br.com.alurafood.pedidos.services.OrderService;
 import br.com.alurafood.pedidos.web.dto.RequestOrderDto;
+import br.com.alurafood.pedidos.web.dto.ResponseOrderDto;
 import br.com.alurafood.pedidos.web.dto.mapper.OrderItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,6 +23,11 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @GetMapping("/port")
+    public String returnPort(@Value("${local.server.port}") String port){
+        return String.format("Requisição respondida pela instância executando na porta %s", port);
+    }
 
     @GetMapping
     public ResponseEntity<Page<Order>> getAll(@PageableDefault(size = 5) Pageable pageable) {

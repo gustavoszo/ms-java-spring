@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Entity
-@Table(name = "pedidos")
+@Table(name = "orders")
 public class Order {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="order")
@@ -25,4 +25,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Override
+    public String toString() {
+        return status.toString();
+    }
 }
