@@ -4,6 +4,7 @@ import br.com.alurafood.pagamentos.entities.Payment;
 import br.com.alurafood.pagamentos.services.PaymentService;
 import br.com.alurafood.pagamentos.web.dto.RequestPaymentDto;
 import br.com.alurafood.pagamentos.web.dto.mapper.PaymentMapper;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +45,7 @@ public class PaymentController {
     @PatchMapping("/{id}/confirm")
     public ResponseEntity<Void> confirmPayment(@PathVariable Long id){
         paymentService.confirmPayment(id);
-        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

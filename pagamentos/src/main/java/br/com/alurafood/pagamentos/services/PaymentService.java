@@ -52,4 +52,5 @@ public class PaymentService {
         // chamada para o microserviço de pedidos
         orderClient.updateOrderStatus(payment.getOrderId());
     }
+
 }
