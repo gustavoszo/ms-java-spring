@@ -1,5 +1,6 @@
 package br.com.alurafood.pedidos.entities;
 
+import br.com.alurafood.pedidos.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

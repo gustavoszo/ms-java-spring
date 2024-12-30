@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients // Com essa anotação, é possivel declarar interfaces de cliente que o Feign automaticamente implementa em tempo de execução, realizando chamadas HTTP para serviços remotos de forma transparente.
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients // Com essa anotação, é possivel declarar interfaces de cliente que o Feign automaticamente implementa em tempo de execução, realizando chamadas HTTP para serviços remotos de forma transparente.
 public class PagamentosApplication {
 
 	public static void main(String[] args) {

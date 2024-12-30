@@ -1,15 +1,15 @@
 package br.com.alurafood.pagamentos.services;
 
+import org.springframework.transaction.annotation.Transactional;
 import br.com.alurafood.pagamentos.clients.OrderClient;
 import br.com.alurafood.pagamentos.entities.Payment;
-import br.com.alurafood.pagamentos.entities.Status;
+import br.com.alurafood.pagamentos.entities.enums.Status;
 import br.com.alurafood.pagamentos.exceptions.EntityNotFoundException;
 import br.com.alurafood.pagamentos.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentService {
@@ -35,6 +35,7 @@ public class PaymentService {
     @Transactional
     public Payment create(Payment payment)
     {
+        payment.setStatus(Status.CREATED);
         return paymentRepository.save(payment);
     }
 
@@ -50,7 +51,12 @@ public class PaymentService {
         payment.setStatus(Status.CONFIRMED);
 
         // chamada para o microserviço de pedidos
-        orderClient.updateOrderStatus(payment.getOrderId());
+        orderClient.updateOrderStatus(payment.getOrder());
     }
 
+    @Transactional
+    public void statusChange(Long id) {
+        Payment payment = paymentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
+        payment.setStatus(Status.CONFIRMED_WITHOUT_INTEGRATION);
+    }
 }

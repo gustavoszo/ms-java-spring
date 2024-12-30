@@ -1,10 +1,17 @@
 package br.com.alurafood.pedidos.web.dto.mapper;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import br.com.alurafood.pedidos.entities.Order;
-import br.com.alurafood.pedidos.web.dto.OrderItemDto;
 import br.com.alurafood.pedidos.web.dto.RequestOrderDto;
 import br.com.alurafood.pedidos.web.dto.ResponseOrderDto;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 public class OrderMapper {
 
@@ -12,8 +19,10 @@ public class OrderMapper {
         return new ModelMapper().map(dto, Order.class);
     }
 
-    public static ResponseOrderDto toResponseOrderDto(Order order) {
-        return new ModelMapper().map(order, ResponseOrderDto.class);
+    public static ResponseOrderDto toResponseOrder(Order order) {
+        ResponseOrderDto orderDto =  new ModelMapper().map(order, ResponseOrderDto.class);
+        orderDto.setItens(OrderItemMapper.toResponseOrderItemList(order.getItens()));
+        return orderDto;
     }
 
 }

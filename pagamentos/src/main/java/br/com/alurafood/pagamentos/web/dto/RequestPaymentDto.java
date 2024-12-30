@@ -1,6 +1,5 @@
 package br.com.alurafood.pagamentos.web.dto;
 
-import br.com.alurafood.pagamentos.entities.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -33,9 +32,9 @@ public class RequestPaymentDto {
     private String code;
 
     @NotNull
-    private Long orderId;
+    private Long order;
 
     @NotNull
-    private Long paymentTypeId;
+    private Long paymentType;
 
 }

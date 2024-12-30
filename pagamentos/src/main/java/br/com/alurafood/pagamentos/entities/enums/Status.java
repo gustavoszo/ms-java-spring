@@ -1,4 +1,4 @@
-package br.com.alurafood.pagamentos.entities;
+package br.com.alurafood.pagamentos.entities.enums;
 
 public enum Status {
     CREATED,

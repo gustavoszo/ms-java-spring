@@ -1,10 +1,11 @@
 package br.com.alurafood.pedidos.services;
 
 import br.com.alurafood.pedidos.entities.Order;
-import br.com.alurafood.pedidos.entities.Status;
+import br.com.alurafood.pedidos.entities.enums.Status;
 import br.com.alurafood.pedidos.exceptions.EntityNotFoundException;
 import br.com.alurafood.pedidos.repositories.OrderItemRepository;
 import br.com.alurafood.pedidos.repositories.OrderRepository;
+import br.com.alurafood.pedidos.repositories.projection.OrderProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,9 +38,9 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Order> findAll(Pageable pageable)
+    public Page<OrderProjection> findAll(Pageable pageable)
     {
-        return orderRepository.findAll(pageable);
+        return orderRepository.findAllPageable(pageable);
     }
 
     @Transactional(readOnly = true)
@@ -55,9 +56,8 @@ public class OrderService {
     }
 
     @Transactional
-    public Order updateOrderStatus(Long id) {
+    public void updateOrderStatus(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
         order.setStatus(Status.PAID);
-        return order;
     }
 }

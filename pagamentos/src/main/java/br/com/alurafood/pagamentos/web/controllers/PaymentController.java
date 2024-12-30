@@ -43,8 +43,14 @@ public class PaymentController {
     }
 
     @PatchMapping("/{id}/confirm")
-    public ResponseEntity<Void> confirmPayment(@PathVariable Long id){
-        paymentService.confirmPayment(id);
+    @CircuitBreaker(name = "orderUpdate", fallbackMethod = "authorizedPaymentWithPendingIntegration")
+    public ResponseEntity<Void> confirmPayment(@PathVariable Long id) {
+         paymentService.confirmPayment(id);
+         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    public ResponseEntity<Void> authorizedPaymentWithPendingIntegration(Long id, Exception e) {
+        paymentService.statusChange(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

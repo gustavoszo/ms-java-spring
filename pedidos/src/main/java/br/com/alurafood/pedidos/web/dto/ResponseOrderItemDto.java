@@ -8,13 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class OrderItemDto {
+@Setter @Getter @NoArgsConstructor @AllArgsConstructor
+public class ResponseOrderItemDto {
 
-    @NotNull
-    @Positive
+    private Long id;
     private Integer quantity;
-
-    @NotBlank
     private String description;
+
 }

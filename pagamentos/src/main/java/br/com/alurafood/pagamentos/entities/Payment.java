@@ -1,5 +1,6 @@
 package br.com.alurafood.pagamentos.entities;
 
+import br.com.alurafood.pagamentos.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +35,10 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private Long orderId;
-    private Long paymentTypeId;
+    @Column(name = "order_id")
+    private Long order;
+
+    @Column(name = "payment_type_id")
+    private Long paymentType;
 
 }
