@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "1dfb83dc-e053-4145-9752-9f1856db92f3",
+		"name": "MS - Discovery Register e Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29815824"
+	},
+	"item": [
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders/id"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders/id"
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Order Payment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders/1/paid"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Payment",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders/1/paid"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://gustavo:8082/pedidos/orders/id"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://gustavo:8082/pagamentos/payments/id"
+					},
+					"response": []
+				},
+				{
+					"name": "Find All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://gustavo:8082/pagamentos/payments"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
