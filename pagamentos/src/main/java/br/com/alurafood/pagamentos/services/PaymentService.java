@@ -29,12 +29,15 @@ public class PaymentService {
     @Transactional(readOnly = true)
     public Payment findById(Long id)
     {
-        return paymentRepository.findById(id).orElse(null);
+        return paymentRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException(String.format("Payment com id '%s' não encontrado", id)));
     }
 
     @Transactional
     public Payment create(Payment payment)
     {
+        var orderExists = orderClient.orderExists(payment.getOrder());
+        if (!orderExists.getExists()) throw new EntityNotFoundException(String.format("Order com id '%s' não encontrado", payment.getOrder()));
         payment.setStatus(Status.CREATED);
         return paymentRepository.save(payment);
     }
@@ -42,12 +45,13 @@ public class PaymentService {
     @Transactional
     public void delete(Long id)
     {
+        findById(id);
         paymentRepository.deleteById(id);
     }
 
     @Transactional
     public void confirmPayment(Long id) {
-        Payment payment = paymentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
+        Payment payment = findById(id);
         payment.setStatus(Status.CONFIRMED);
 
         // chamada para o microserviço de pedidos
@@ -56,7 +60,7 @@ public class PaymentService {
 
     @Transactional
     public void statusChange(Long id) {
-        Payment payment = paymentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
+        Payment payment = findById(id);
         payment.setStatus(Status.CONFIRMED_WITHOUT_INTEGRATION);
     }
 }

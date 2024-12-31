@@ -52,12 +52,19 @@ public class OrderService {
     @Transactional
     public void delete(Long id)
     {
+        findById(id);
         orderRepository.deleteById(id);
     }
 
     @Transactional
     public void updateOrderStatus(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order com id '%s' não encontrado", id)));
+        Order order = findById(id);
         order.setStatus(Status.PAID);
+    }
+
+    public Boolean orderExists(Long id)
+    {
+        var order = orderRepository.findById(id).orElse(null);
+        return order != null;
     }
 }
